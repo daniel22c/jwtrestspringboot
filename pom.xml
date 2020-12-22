@@ -11,8 +11,8 @@
 	<groupId>com.example</groupId>
 	<artifactId>jwtrestfulspringboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jwtrestfulspringboot</name>
-	<description>jwtrestfulspringboot</description>
+	<name>jwtrestspringboot</name>
+	<description>jwtrestspringboot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -44,6 +44,39 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+	        <groupId>org.springframework.security</groupId>
+	        <artifactId>spring-security-test</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+	    </dependency>
+	    <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -51,6 +84,61 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.7.7.201606060606</version>
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			        </execution>
+			        <execution>
+			            <id>report</id>
+			            <phase>prepare-package</phase>
+			            <goals>
+			                <goal>report</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+			<plugin>
+			  <groupId>org.jacoco</groupId>
+			  <artifactId>jacoco-maven-plugin</artifactId>
+			  <version>0.8.5</version>
+			  <executions>
+			    <execution>
+			      <id>pre-test</id>
+			      <goals>
+			        <goal>prepare-agent</goal>
+			      </goals>
+			      <configuration>
+			        <propertyName>jacocoArgLine</propertyName>
+			        <destFile>${project.test.result.directory}/jacoco/jacoco.exec</destFile>
+			      </configuration>
+			    </execution>
+			    <execution>
+			      <id>post-test</id>
+			      <phase>test</phase>
+			      <goals>
+			        <goal>report</goal>
+			      </goals>
+			      <configuration>
+			        <dataFile>${project.test.result.directory}/jacoco/jacoco.exec</dataFile>
+			        <outputDirectory>${project.test.result.directory}/jacoco</outputDirectory>
+			      </configuration>
+			    </execution>
+			  </executions>
 			</plugin>
 		</plugins>
 	</build>
